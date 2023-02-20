@@ -3,6 +3,7 @@ package hiber;
 import hiber.config.AppConfig;
 import hiber.model.Car;
 import hiber.model.User;
+import hiber.service.CarService;
 import hiber.service.UserService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -16,27 +17,27 @@ public class MainApp {
 
             UserService userService = context.getBean(UserService.class);
 
-        User user1 = new User("User1", "Lastname1", "user1@mail.ru");
-        Car car1 = new Car("Car1", 10);
-        user1.setUserCar(car1);
-        userService.add(user1);
+            User user1 = new User("User1", "Lastname1", "user1@mail.ru");
+            Car car1 = new Car("Car1", 10);
+            user1.setUserCar(car1);
+            userService.addUser(user1);
 
-        User user2 = new User("User2", "Lastname2", "user2@mail.ru");
-        Car car2 = new Car("Car2", 20);
-        user2.setUserCar(car2);
-        userService.add(user2);
+            User user2 = new User("User2", "Lastname2", "user2@mail.ru");
+            Car car2 = new Car("Car2", 20);
+            user2.setUserCar(car2);
+            userService.addUser(user2);
 
-        User user3 = new User("User3", "Lastname3", "user3@mail.ru");
-        Car car3 = new Car("Car3", 30);
-        user3.setUserCar(car3);
-        userService.add(user3);
+            User user3 = new User("User3", "Lastname3", "user3@mail.ru");
+            Car car3 = new Car("Car3", 30);
+            user3.setUserCar(car3);
+            userService.addUser(user3);
 
-        User user4 = new User("User4", "Lastname4", "user4@mail.ru");
-        Car car4 = new Car("Car4", 40);
-        user4.setUserCar(car4);
-        userService.add(user4);
+            User user4 = new User("User4", "Lastname4", "user4@mail.ru");
+            Car car4 = new Car("Car4", 40);
+            user4.setUserCar(car4);
+            userService.addUser(user4);
 
-            List<User> users = userService.listUsers();
+            List<User> users = userService.getUsers();
             for (User user : users) {
                 System.out.println("User_id = " + user.getId());
                 System.out.println("First_name = " + user.getFirstName());
@@ -48,9 +49,11 @@ public class MainApp {
                 System.out.println("______________________");
             }
 
+            CarService carService = context.getBean(CarService.class);
+
             String model = "Car3";
             int series = 30;
-            User userWithAuto = userService.getUserByModelAndSeriesCar(model, series);
+            User userWithAuto = carService.getUser(model, series);
             System.out.println("Выбор юзера по модели и серии автомобиля: " +
                     "\nUser_id = " + userWithAuto.getId() +
                     "\nFirst_name = " + userWithAuto.getFirstName() +
